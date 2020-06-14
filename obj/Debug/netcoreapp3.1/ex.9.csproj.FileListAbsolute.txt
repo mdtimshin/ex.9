@@ -1,0 +1,13 @@
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.exe
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.deps.json
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.runtimeconfig.json
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.runtimeconfig.dev.json
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.dll
+E:\Documents\вышка\учебная практика\задача 9\ex.9\bin\Debug\netcoreapp3.1\ex.9.pdb
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.csprojAssemblyReference.cache
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.csproj.CoreCompileInputs.cache
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.AssemblyInfoInputs.cache
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.AssemblyInfo.cs
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.dll
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.pdb
+E:\Documents\вышка\учебная практика\задача 9\ex.9\obj\Debug\netcoreapp3.1\ex.9.genruntimeconfig.cache

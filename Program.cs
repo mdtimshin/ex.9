@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -41,8 +40,16 @@ namespace ex._9
 
         public LinearList(int N)
         {
-            nodes = new Node<double>[N];
-            count = N;
+            try
+            {
+                nodes = new Node<double>[N];
+                count = N;
+            }
+            catch (System.OverflowException)
+            {
+                Console.WriteLine("Введена некорректная длина последовательности. Завершение работы программы.");
+                Environment.Exit(1);
+            }
         }
 
         
@@ -86,9 +93,9 @@ namespace ex._9
                     return posl[i].number;
                 }
             }
-            return 1;
+            return -1;
         }
-         public void Show(LinearList<double> posl)
+        public void Show(LinearList<double> posl)
         {
             for(int i=0; i<posl.count; i++)
             {
@@ -101,91 +108,118 @@ namespace ex._9
     {
         static void Main(string[] args)
         {
-            #region posledovatelnist
-            Console.WriteLine("Введите кол-во элементов списка");
-            int N = int.Parse(Console.ReadLine());
-            LinearList<double> linearList = new LinearList<double>(N);
-            string[] s = File.ReadLines("numbers.txt").First().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            double[] numbers = new double[N];
-            for(int i = 0; i < numbers.Length; i++)
+            try
             {
-                numbers[i] = double.Parse(s[i]);
-            }
-
-            int posCount = 0;
-            foreach(double n in numbers)
-            {
-                if (n > 0) posCount++;
-            }
-            int COUNT = 0;
-            double[] positive = new double[posCount];
-            for(int i = 0; i<N; i++)
-            {
-                if (numbers[i] > 0)
+                #region posledovatelnist
+                Console.WriteLine("Введите кол-во элементов списка");
+                int N = int.Parse(Console.ReadLine());
+                LinearList<double> linearList = new LinearList<double>(N);
+                string[] s = File.ReadLines("numbers.txt").First().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                double[] numbers = new double[N];
+                for (int i = 0; i < numbers.Length; i++)
                 {
-                    positive[COUNT] = numbers[i];
-                    COUNT++;
+                    numbers[i] = double.Parse(s[i]);
                 }
-            }
-            Array.Reverse(positive);
 
-
-            int negCount = 0;
-            foreach (double n in numbers)
-            {
-                if (n < 0) negCount++;
-            }
-            double[] negative = new double[negCount];
-            COUNT = 0;
-            for (int i = 0; i < N; i++)
-            {
-                if (numbers[i] < 0)
+                int posCount = 0;
+                foreach (double n in numbers)
                 {
-                    negative[COUNT] = numbers[i];
-                    COUNT++;
+                    if (n > 0) posCount++;
                 }
-            }
+                int COUNT = 0;
+                double[] positive = new double[posCount];
+                for (int i = 0; i < N; i++)
+                {
+                    if (numbers[i] > 0)
+                    {
+                        positive[COUNT] = numbers[i];
+                        COUNT++;
+                    }
+                }
+                Array.Reverse(positive);
 
-            int zeroCount = 0;
-            foreach (double n in numbers)
-            {
-                if (n == 0) zeroCount++;
-            }
+
+                int negCount = 0;
+                foreach (double n in numbers)
+                {
+                    if (n < 0) negCount++;
+                }
+                double[] negative = new double[negCount];
+                COUNT = 0;
+                for (int i = 0; i < N; i++)
+                {
+                    if (numbers[i] < 0)
+                    {
+                        negative[COUNT] = numbers[i];
+                        COUNT++;
+                    }
+                }
+
+                int zeroCount = 0;
+                foreach (double n in numbers)
+                {
+                    if (n == 0) zeroCount++;
+                }
 
 
-            double[] chisla = new double[N];
-            for(int i=0; i<posCount; i++)
-            {
-                chisla[i] = positive[i];
-            }
-            for(int i = posCount; i<posCount+zeroCount; i++)
-            {
-                chisla[i] = 0;
-            }
-            for(int i = posCount+zeroCount; i<N; i++)
-            {
-                chisla[i] = negative[i - posCount - zeroCount];
-            }
-            #endregion
-            LinearList <double> posl = new LinearList<double>(chisla.Length);
-            for(int i=1; i<=chisla.Length; i++)
-            {
-                posl[i - 1] = new Node<double>(chisla[i - 1]);
-            }
-            Console.WriteLine(@"Линейный список:
+                double[] chisla = new double[N];
+                for (int i = 0; i < posCount; i++)
+                {
+                    chisla[i] = positive[i];
+                }
+                for (int i = posCount; i < posCount + zeroCount; i++)
+                {
+                    chisla[i] = 0;
+                }
+                for (int i = posCount + zeroCount; i < N; i++)
+                {
+                    chisla[i] = negative[i - posCount - zeroCount];
+                }
+                #endregion
+                LinearList<double> posl = new LinearList<double>(chisla.Length);
+                for (int i = 1; i <= chisla.Length; i++)
+                {
+                    posl[i - 1] = new Node<double>(chisla[i - 1]);
+                }
+                Console.WriteLine(@"Линейный список:
 Значение   Номер элемента");
-            posl.Show(posl);
+                posl.Show(posl);
 
-            Console.WriteLine("Введите номер элемента для удаления");
-            int number = int.Parse(Console.ReadLine());
-            posl.Remove(ref posl, number);
-            Console.WriteLine(@"Линейный список:
+                Console.WriteLine("Введите номер элемента для удаления");
+                int number = int.Parse(Console.ReadLine());
+                posl.Remove(ref posl, number);
+                Console.WriteLine(@"Линейный список:
 Значение   Номер элемента");
-            posl.Show(posl);
-            Console.WriteLine("Введите значение элемента, который нужно найти");
-            int znach = int.Parse(Console.ReadLine());
-            double output = posl.Search(posl, znach);
-            Console.WriteLine($"Номер элемента со значением = {znach} - {output}");
+                posl.Show(posl);
+                Console.WriteLine("Введите значение элемента, который нужно найти");
+                int znach = int.Parse(Console.ReadLine());
+                double output = posl.Search(posl, znach);
+                if (output != -1)
+                {
+                    Console.WriteLine($"Номер элемента со значением = {znach} - {output}");
+                }
+                else
+                {
+                    Console.WriteLine("В последовательности нет элемента с таким значением");
+                }
+                
+            }
+            catch (System.IndexOutOfRangeException)
+            {
+                Console.WriteLine("В файле нет столько элементов. Завершение работы программы");
+            }
+            catch (System.FormatException)
+            {
+                Console.WriteLine("Введено не число. Завершение работы программы");
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("Файл не найден. Завершение работы программы");
+            }
+            catch (System.InvalidOperationException)
+            {
+                Console.WriteLine("Файл пуст. Завершение работы программы");
+            }
             Console.ReadKey();
         }
     }
